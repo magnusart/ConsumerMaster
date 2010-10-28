@@ -1,0 +1,11 @@
+**/bin/*
+**/bin/**/*
+**/target/*
+**/target/**/*
+**/war/*
+**/war/**/*
+**/.settings/*
+**/.classpath
+**/.project
+.classpath
+.project
