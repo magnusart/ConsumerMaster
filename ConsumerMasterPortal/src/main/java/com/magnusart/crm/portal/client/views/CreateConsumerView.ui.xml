@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		td.consumer-ListContainer {
+		  padding-right: 10px;
+		}
+	</ui:style>
+	<g:VerticalPanel>
+		<g:HorizontalPanel>
+			<g:Label>Consumer Type</g:Label>
+			<g:Label>Person</g:Label>
+			<g:RadioButton ui:field="personBtn" name="consumerType"/>
+			<g:Label>Company</g:Label>
+			<g:RadioButton ui:field="companyBtn" name="consumerType"/>
+		</g:HorizontalPanel>
+		<g:DeckPanel ui:field="consumerInformationDeck">
+			<g:FlexTable ui:field="personDetails" cellSpacing="0"
+				width="100%" stylePrimaryName="consumer-ListContainer"/>
+			<g:FlexTable ui:field="companyDetails" cellSpacing="0"
+				width="100%" stylePrimaryName="consumer-ListContainer"/>
+		</g:DeckPanel>
+		<g:HorizontalPanel ui:field="actionPanel">
+				<g:Button ui:field="createButton">Create Consumer</g:Button>
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
+</ui:UiBinder> 

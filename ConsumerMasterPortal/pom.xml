@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>ConsumerMaster</artifactId>
+    <groupId>com.magnusart.crm</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.magnusart.crm</groupId>
+  <artifactId>ConsumerMasterPortal</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>ConsumerMasterPortal</name>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <version>2.0.4</version>
+       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>2.0.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.magnusart.crm</groupId>
+    	<artifactId>DataRefinery</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    	<type>ejb</type>
+    	<scope>provided</scope>
+    </dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>servlet-api</artifactId>
+    	<version>3.0-alpha-1</version>
+    	<type>jar</type>
+    	<scope>provided</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.glassfish</groupId>
+    	<artifactId>javax.javaee</artifactId>
+    	<version>10.0-SNAPSHOT</version>
+    	<type>jar</type>
+    	<scope>provided</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <outputDirectory>war/WEB-INF/classes</outputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>1.2.0-11137</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <!-- Add this later -->
+             <!-- <goal>generateAsync</goal>  --> 
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <runTarget>index.html</runTarget>
+        </configuration>
+      </plugin>
+      <!--
+          If you want to use the target/web.xml file mergewebxml produces,
+          tell the war plugin to use it.
+          Also, exclude what you want from the final artifact here.
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>target/web.xml</webXml>
+                    <warSourceExcludes>.gwt-tmp/**</warSourceExcludes>
+                </configuration>
+            </plugin>
+            -->
+
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.0.2</version>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+	<entity class="com.magnusart.crm.model.e.AddressEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.ConsumerEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.RelationEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.VehicleEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.SoftProductEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.addresses.PostalAddressEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.addresses.FacebookAddressEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.consumers.CompanyEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.consumers.PersonEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.relations.AccessoryRelationEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.relations.HumanRelationEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.relations.VehicleRelationEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.relations.SoftProductRelationEntity"></entity>
+	<entity class="com.magnusart.crm.model.e.vehicles.VolvoEntity"></entity>
+</entity-mappings>

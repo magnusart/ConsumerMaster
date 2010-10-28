@@ -1,0 +1,49 @@
+#created on: 2010-sep-21
+package com.magnusart.crm.bpm
+
+#list any import classes here.
+import com.magnusart.crm.bpm.commands.CreateConsumer;
+import com.magnusart.crm.model.Consumer;
+import com.magnusart.crm.model.Relation;
+import com.magnusart.crm.model.Relation.RelationType;
+import com.magnusart.crm.model.Vehicle;
+import com.magnusart.crm.model.vehicle.Volvo;
+import com.magnusart.crm.model.Vehicle.VehicleType;
+import com.magnusart.crm.model.realtion.VehicleRelation;
+import com.magnusart.crm.bpm.validations.FaultyConsumerRelation;
+
+#declare any global variables here
+
+
+rule "Consumer has no invalid relations"
+	ruleflow-group "ValidateConsumerRelations"
+	lock-on-active 
+	when
+		$command : CreateConsumer(  )
+		$cons : Consumer() from $command.getEntity()
+		$foundBadRelaton : Relation( type == RelationType.ACCESSORY ) from $cons.getRelations()
+	then
+		System.out.println("Ett");
+		# Set command to validated false
+		modify( $command ) { getValidations().add( new FaultyConsumerRelation( $cons, $foundBadRelaton ) ), 
+		setValidated(false), 
+		setPersistable(false) };
+end
+
+rule "Vehicle has no invalid relations"
+	ruleflow-group "ValidateVehicleRelations"
+	lock-on-active
+	when
+		$command : CreateConsumer(  )
+		$cons : Consumer() from $command.getEntity()
+		$rel : Relation( type == RelationType.VEHICLE ) from $cons.getRelations( ) #Consumer Relation
+		$vehicleRel: VehicleRelation() from $rel #Cast to VehicleRelation
+		$vehicle: Vehicle( type == VehicleType.VOLVO ) from $vehicleRel.getVehicle() #Get Vehicle
+		$volvo: Volvo() from $vehicle #Cast to Volvo
+		
+		$foundBadRelaton : Relation( type == RelationType.HUMAN || type == RelationType.VEHICLE ) from $volvo.getAccessories()
+	then
+		modify( $command ) { getValidations().add( new FaultyVehicleRelation( $volvo, $foundBadRelaton ) ), 
+		setValidated(false), 
+		setPersistable(false) };
+end

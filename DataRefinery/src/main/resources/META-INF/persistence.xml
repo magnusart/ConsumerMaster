@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="CRM_DEV_TEST"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<properties>
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.max_fetch_depth" value="3" />
+			<!-- create-drop, verify, update -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<!-- Echo all executed SQL to stdout -->
+			<property name="show_sql" value="true" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/crm_dev" />
+			<property name="javax.persistence.jdbc.user" value="crm_app" />
+			<property name="javax.persistence.jdbc.password" value="crm_app" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="CRM" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<properties>
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.max_fetch_depth" value="3" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+
+			<!-- Echo all executed SQL to stdout -->
+			<property name="show_sql" value="true" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/crm_dev" />
+			<property name="javax.persistence.jdbc.user" value="crm_app" />
+			<property name="javax.persistence.jdbc.password" value="crm_app" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+		</properties>
+	</persistence-unit>
+</persistence>
