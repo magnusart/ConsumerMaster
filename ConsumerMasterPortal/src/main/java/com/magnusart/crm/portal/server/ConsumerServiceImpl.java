@@ -1,6 +1,10 @@
 package com.magnusart.crm.portal.server;
 
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.magnusart.crm.business.ConsumerBusinessServices;
@@ -20,6 +24,21 @@ public class ConsumerServiceImpl extends RemoteServiceServlet implements
 
 	@EJB
 	ConsumerBusinessServices services;
+
+	@Override
+	public void init(final ServletConfig config) throws ServletException {
+		super.init(config);
+
+		try {
+			// get the inital context
+			final Context ctx = new InitialContext();
+
+			services = (ConsumerBusinessServices) ctx
+					.lookup("ConsumerBusinessServices");
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public ConsumerDetails createConsumer(final ConsumerDetails consumer) {
