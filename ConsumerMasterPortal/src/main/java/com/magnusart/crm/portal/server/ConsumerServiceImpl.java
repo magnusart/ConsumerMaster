@@ -8,9 +8,9 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.magnusart.crm.CommandBus;
 import com.magnusart.crm.business.commands.CreatePersonCommand;
-import com.magnusart.crm.business.presentation.AbstractPresentation;
-import com.magnusart.crm.business.presentation.PresentPerson;
-import com.magnusart.crm.business.presentation.PresentationStateHandler;
+import com.magnusart.crm.business.reports.AbstractReport;
+import com.magnusart.crm.business.reports.PersonReport;
+import com.magnusart.crm.business.reports.ReportHandler;
 import com.magnusart.crm.portal.client.ConsumerService;
 import com.magnusart.crm.portal.shared.CompanyDetails;
 import com.magnusart.crm.portal.shared.ConsumerDetails;
@@ -24,14 +24,14 @@ import com.magnusart.crm.portal.shared.PersonDetails;
  * @since 17 okt 2010
  */
 public class ConsumerServiceImpl extends RemoteServiceServlet implements
-		ConsumerService, PresentationStateHandler {
+		ConsumerService, ReportHandler {
 
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private CommandBus services;
+	private CommandBus commandBus;
 
-	private PresentPerson personPage = null;
+	private PersonReport personReport = null;
 
 	/**
 	 * {@inheritDoc}
@@ -39,8 +39,8 @@ public class ConsumerServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
 		super.init(config);
-		final HandlerManager eventBus = services.getEventBus();
-		eventBus.addHandler(AbstractPresentation.TYPE, this);
+		final HandlerManager eventBus = commandBus.getEventBus();
+		eventBus.addHandler(AbstractReport.TYPE, this);
 
 	}
 
@@ -53,7 +53,7 @@ public class ConsumerServiceImpl extends RemoteServiceServlet implements
 		if (consumer instanceof PersonDetails) {
 			final CreatePersonCommand command = new CreatePersonCommand(
 					(PersonDetails) consumer);
-			services.executeCommand(command);
+			commandBus.executeCommand(command);
 
 		} else if (consumer instanceof CompanyDetails) {
 			// Do nothing yet
@@ -61,16 +61,16 @@ public class ConsumerServiceImpl extends RemoteServiceServlet implements
 			assert false : "Should always be either Company or Person details";
 		}
 
-		if (personPage != null) {
-			System.out.println("We got an Person Page!");
+		if (personReport != null) {
+			System.out.println("We got an Person Report!");
 		}
 
 		return consumer;
 	}
 
 	@Override
-	public void onPersonPage(final PresentPerson event) {
-		personPage = event;
+	public void onPersonReport(final PersonReport report) {
+		personReport = report;
 	}
 
 }
